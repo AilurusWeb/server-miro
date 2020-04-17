@@ -11,6 +11,7 @@ import helmet from "helmet";
 import mustacheExpress from "mustache-express";
 // Routing
 import { itemsRouter } from "./items/items.router";
+import { diceRouter } from "./dice/dice.router";
 // Routing Exceptions
 import { errorHandler } from "./middleware/error.middleware";
 import { notFoundHandler } from "./middleware/notFound.middleware";
@@ -44,6 +45,7 @@ app.set('views', './views');
 app.use(express.json());
 // Routing
 app.use("/items", itemsRouter);
+app.use("/dice", diceRouter);
 // Routing Exceptions
 app.use(errorHandler);
 app.use(notFoundHandler);
