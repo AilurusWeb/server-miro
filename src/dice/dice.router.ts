@@ -24,6 +24,9 @@ diceRouter.get("/:side", async (req: Request, res: Response) => {
     if(isNaN(side)) {
       throw "Le dé lancé doit être un nombre";
     }
+    if(side === 0) {
+      throw "Le dé lancé doit être supérieur à zéro";
+    }
     else {
       const dice: Dice = await diceService.create(side);
       res.status(200).send(dice);
