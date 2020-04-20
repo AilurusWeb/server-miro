@@ -1,10 +1,8 @@
 // src/inputstream/inputstream.interface.ts
 
 
-import { RollsParser as Rolls } from "./rollsparser.interface";
-
-interface InputStream {
-  [id: number]: Rolls
+interface OuputStream {
+  [type: string]: DicesParser | MonstersParser;
 }
 
-export { InputStream };
+export { OuputStream };
