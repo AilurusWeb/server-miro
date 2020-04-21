@@ -1,8 +1,8 @@
 // src/inputstream/inputstream.interface.ts
 
 
-interface OuputStream {
+interface OutputStream {
   [type: string]: DicesParser | MonstersParser;
 }
 
-export { OuputStream };
+export { OutputStream };
