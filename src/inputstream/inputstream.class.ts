@@ -34,7 +34,8 @@ export class InputStreamController implements InputStreamSchema {
   private _rollsToParser: RollsSorted = {
     dices: [],
     monsters: []
-  };
+    };
+
   private _rollsFromParser: RollsSorted = {
     dices: [],
     monsters: []
@@ -63,7 +64,6 @@ export class InputStreamController implements InputStreamSchema {
         
       if(rollsType === "monsters")
         this._getMonsters( this._rollsToParser[rollsType] );
-
     }
   }
 

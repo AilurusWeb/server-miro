@@ -6,7 +6,7 @@ Methodes :
 
 _DicesParser.construct(Array)
     Methode private
-    initiation de l'objet et appel de la méthode dicesSplit             // Ici ["2D6+4-2", "1D12"]
+    initiation de l'objet et appel de la méthode dicesSplit             // Ici ["2D6+4-2", "1D12"] et renvoi le json souhaité
 
 _DicesParser.dicesSplit()
     Methode private
@@ -40,7 +40,10 @@ DicesParser._roll(map{json});
 }
  */
 
-import {Dice} from "./Dice.class";
+/*
+ * 
+ */
+import * as Dice from "../dice/Dice.service";
 
 
 export class DicesParser {
@@ -102,7 +105,7 @@ export class DicesParser {
 
         /*Pour chaque lancer de dé de même valeur*/
         for (let i = 0; i < rollNumber; i++) {
-            let diceRoll = new Dice(side); //Création de l'objet dé
+            let diceRoll = Dice.create(side); //Création de l'objet dé
             dicesList.push(diceRoll); //Ajout du dé créé à la liste dices
             dicesSum += diceRoll.value; //Additionne la valeur des différent lancer
         };
