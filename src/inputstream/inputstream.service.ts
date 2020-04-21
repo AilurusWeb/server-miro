@@ -2,7 +2,7 @@
  * Data Model Interfaces
  */
 
-import { InputStream } from "./inputstream.interface";
+import { OutputStream } from "./inputstream.interface";
 import { InputStreamController } from "./inputstream.class";
 
 /**
@@ -15,6 +15,6 @@ let stream = "2d6+6 1d10 "
  * Service Methods
  */
 
-export const parse = async (value: string): Promise<InputStream> => {
+export const parse = async (value: string): Promise<OutputStream> => {
   return new InputStreamController(value).getRolls();
 };

@@ -2,7 +2,14 @@
  * Data Model Interfaces
  */
 
-import { OuputStream } from "./inputstream.interface";
+import { OutputStream } from "./inputstream.interface";
+ 
+/**
+ * Class Import
+ */
+
+import { DiceParser } from "../diceparser/diceparser.class";
+import { MonsterParser } from "../monsterparser/monsterparser.class";
 
  
 /**
@@ -14,10 +21,8 @@ interface RollsSorted {
 }
 
 interface InputStreamSchema {
-  getRolls: InputStream
+  getRolls: OutputStream
 }
-
-
 /**
  * Regex Definitions
  */
@@ -31,12 +36,7 @@ const regIsMonster: RegExp = /(^\d*M\d+){1}\s?(((\+|-)\s?\d+\s?)+$|$)/gi;
  */
 
 export class InputStreamController implements InputStreamSchema {
-  private _rollsToParser: RollsSorted = {
-    dices: [],
-    monsters: []
-    };
-
-  private _rollsFromParser: RollsSorted = {
+  private _rolls: RollsSorted = {
     dices: [],
     monsters: []
   };
@@ -47,23 +47,6 @@ export class InputStreamController implements InputStreamSchema {
   public constructor (response: string) {
     if(typeof response === "string" && response.length > 0) {
       this._sorted(response);
-      this._dispensed();
-    }
-  }
-
-  /**
-   * Créer un objet associé au type du roll
-   * @param rollsSorted 
-   */
-  private _dispensed() {
-
-    for(const rollsType in this._rollsToParser) {
-
-      if(rollsType === "dices")
-        this._getDices( this._rollsToParser[rollsType] );
-        
-      if(rollsType === "monsters")
-        this._getMonsters( this._rollsToParser[rollsType] );
     }
   }
 
@@ -74,37 +57,26 @@ export class InputStreamController implements InputStreamSchema {
   private _sorted(response: string): boolean {
     let elements = response.split(" ");
 
+    let i = 0;
     for (const el of elements) {
-      if (typeof el !== "string") continue;
-      if (el.match(regIsDice)) this._rollsToParser.dices.push(el);
-      if (el.match(regIsMonster)) this._rollsToParser.monsters.push(el);
+      if (el === "") continue;
+      if (el.match(regIsDice)) {
+        this._rolls.dices.push( new DiceParser(el) );
+        i++;
+      }
+      if (el.match(regIsMonster)) {
+        this._rolls.monsters.push( new MonsterParser(el) );
+        i++;
+      }
     }
-    const dicesLength = this._rollsToParser.dices.length;
-    const monstersLength = this._rollsToParser.monsters.length;
-    return !(dicesLength === 0 && monstersLength === 0);
-  }
-
-  /**
-   * 
-   * @param strDices Array de string de lancé de dé
-   */
-  private _getDices (strDices: Array<string>) {
-    this._rollsFromParser.dices = new DicesParser(strDices).get();
-  }
-
-  /**
-   * 
-   * @param strDices Array de string de lancé de monstre
-   */
-  private _getMonsters (strMonsters: Array<string>) {
-    this._rollsFromParser.monsters = new MonstersParser(strMonsters).get();
+    return !(i === 0);
   }
 
   /**
    * Retourne 
    */
-  public getRolls (): InputStream {
-    return this._rollsFromParser;
+  public getRolls (): OutputStream {
+    return this._rolls;
   }
 
 }
