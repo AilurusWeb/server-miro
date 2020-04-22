@@ -4,6 +4,7 @@
 
 import * as dotenv from "dotenv";
 import express from "express";
+import bodyParser from "body-parser";
 import { Server as http } from "http";
 import { listen as ioServer } from "socket.io";
 import cors from "cors";
@@ -43,6 +44,8 @@ app.use('/static', express.static('static'));
 app.set('view engine', 'html');
 app.set('views', './views');
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 // Routing
 app.use("/items", itemsRouter);
 app.use("/dice", diceRouter);

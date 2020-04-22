@@ -62,17 +62,15 @@ export class ChannelsController {
    * Envoi la reponse pour la transformer en roll
    * @param value valeur envoyer par l'input
    */
-  public submit (value: string, username?: string | null): object | boolean {
-    let response = { date: DateNow.time() };
+  public submit (value: string, username?: string): object | boolean {
+    let response = { time: DateNow.time() };
 
     if(strNotEmpty(value)) {
       let stream = InputStreamService.parse(value);
-      if(stream) {
+      if(stream)
         response = {...response, ...stream};
-      }
-      else {
+      else
         return false;
-      }
     }
 
     if(strNotEmpty(username))
