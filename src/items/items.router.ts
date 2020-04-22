@@ -45,10 +45,8 @@ itemsRouter.get("/:id", async (req: Request, res: Response) => {
 
 // POST items/
 
-itemsRouter.post("/", async (req: Request, res: Response) => {
+itemsRouter.post("/:id", async (req: Request, res: Response) => {
   try {
-    const item: Item = req.body.item;
-
     await ItemService.create(item);
 
     res.sendStatus(201);
