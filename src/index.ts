@@ -7,6 +7,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import { Server as http } from "http";
 import { listen as ioServer } from "socket.io";
+import fetch from 'node-fetch';
 import cors from "cors";
 import helmet from "helmet";
 import mustacheExpress from "mustache-express";
