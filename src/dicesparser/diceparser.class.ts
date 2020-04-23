@@ -101,7 +101,7 @@ export class DicesParser {
 
         /*Pour chaque lancer de d� de m�me valeur*/
         for (let i = 0; i < rollNumber; i++) {
-            let diceRoll = new Dice(side).get(); //Cr�ation de l'objet d�
+            let diceRoll = new Dice(side).rolled(); //Cr�ation de l'objet d�
             dicesList.push(diceRoll); //Ajout du d� cr�� � la liste dices
             dicesSum += diceRoll.value; //Additionne la valeur des diff�rent lancer
         };

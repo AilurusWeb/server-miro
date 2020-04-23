@@ -8,19 +8,19 @@ import { Dice } from "./dice.interface";
  * Class Dice 
  */
 export class DiceController {
-  private _dice: Dice = { side: 0, value: 0 };
+  private _default: Dice = { side: 0, value: 0 };
+  private _side: number = 0;
 
-  public constructor (side: number) {
-    if(typeof side === "number" && side > 0) {
-      this._dice = {
-        side: side,
-        value: Math.floor(Math.random() * side) + 1
-      }
-    }
+  constructor (side: number) {
+    this._side = side;
   }
 
-  public get() {
-    return this._dice;
+  rolled () {
+    if(typeof this._side !== "number") return this._default;
+    return {
+      side: this._side,
+      value: Math.floor(Math.random() * this._side) + 1
+    }
   }
 }
 
@@ -29,5 +29,5 @@ export class DiceController {
  */
 
 export const create = async (side: number): Promise<Dice> => {
-  return new DiceController(side).get();
+  return new DiceController(side).rolled();
 };
