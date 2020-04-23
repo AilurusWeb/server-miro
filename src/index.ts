@@ -57,16 +57,24 @@ app.use(notFoundHandler);
 /**
  * Socket IO
  */
+const https_api = `http://localhost:${PORT}/`;
 let clients = 0;
 io.on('connection', function (socket) {
   clients++;
 
-  socket.on('user', function (user) {
-    let private_msg = {
-      from: user.name,
-      msg: "Salut tout le monde :)"
-    };
-    socket.broadcast.emit('response', private_msg);
+  socket.on('user to roll', function (user_roll) {
+    const fetch = require('node-fetch');
+
+    const url = https_api + 'channel/id_15151/roll/';
+    fetch('https://httpbin.org/post', {
+      method: 'post',
+      body: JSON.stringify(user_roll),
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then(res => res.json())
+      .then(json => console.log(json));
+      
+    // socket.broadcast.emit('response', private_msg);
   })
   
 

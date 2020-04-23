@@ -9,7 +9,7 @@ import { OutputStream } from "./inputstream.interface";
  */
 
 import { DiceParser } from "../diceparser/diceparser.class";
-import { MonsterParser } from "../monsterparser/monsterparser.class";
+//import { MonsterParser } from "../monsterparser/monsterparser.class";
 
  
 /**
@@ -65,7 +65,7 @@ export class InputStreamController implements InputStreamSchema {
         i++;
       }
       if (el.match(regIsMonster)) {
-        this._rolls.monsters.push( new MonsterParser(el) );
+        // this._rolls.monsters.push( new MonsterParser(el) );
         i++;
       }
     }

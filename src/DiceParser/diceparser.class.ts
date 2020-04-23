@@ -1,29 +1,29 @@
 /*
  Classe dicesParser
- Permet de gérer une liste de lancer de dés de type "2D6+4-2" pour renvoyer les résultats du lancer sous forme d'un json
+ Permet de gï¿½rer une liste de lancer de dï¿½s de type "2D6+4-2" pour renvoyer les rï¿½sultats du lancer sous forme d'un json
 
 Methodes :
 
 _DicesParser.construct(Array)
     Methode private
-    initiation de l'objet et appel de la méthode dicesSplit             // Ici ["2D6+4-2", "1D12"]
+    initiation de l'objet et appel de la mï¿½thode dicesSplit             // Ici ["2D6+4-2", "1D12"]
 
 _DicesParser.dicesSplit()
     Methode private
-    Découpe la chaine en autant de lancer 
-    que possible et sépare les modifiers
+    Dï¿½coupe la chaine en autant de lancer 
+    que possible et sï¿½pare les modifiers
 
  renvoi la liste
  rollsResult :[
  {                                                                      Objet "Premier lancer"
- rollA : [ DiceA1 :{side : 6, value: 4}, DiceA2:{side: 6, value: 2}],   // La liste des objets dice du premier lancer{side: valeur du dés, value: valeur du lancer}
+ rollA : [ DiceA1 :{side : 6, value: 4}, DiceA2:{side: 6, value: 2}],   // La liste des objets dice du premier lancer{side: valeur du dï¿½s, value: valeur du lancer}
  modifiers : 2,                                                         // La somme des modifiers (4 - 2)
- sum : 8                                                                // La somme des lancer de dé (4 + 2) et des modifiers (4 - 2)
+ sum : 8                                                                // La somme des lancer de dï¿½ (4 + 2) et des modifiers (4 - 2)
  },                                                              
- {                                                                      Objet "Deuxième lancer"
- rollB: [DiceB1:{side:12, value: 3}]                                    // La liste des objets dice du deuxième lancer {side: valeur du dés, value: valeur du lancer}
+ {                                                                      Objet "Deuxiï¿½me lancer"
+ rollB: [DiceB1:{side:12, value: 3}]                                    // La liste des objets dice du deuxiï¿½me lancer {side: valeur du dï¿½s, value: valeur du lancer}
  modifiers: 0,                                                          // La somme des modifiers (0)
- sum: 3                                                                 // La somme des lancer de dé (3) et des modifiers (0)
+ sum: 3                                                                 // La somme des lancer de dï¿½ (3) et des modifiers (0)
  }                                                                
 
 _DicesParser.modifiersParser()
@@ -32,16 +32,15 @@ _DicesParser.modifiersParser()
 
 DicesParser._roll(map{json});
     Methode private
-    prend en argument la liste renvoyée par la méthode splitRolls
+    prend en argument la liste renvoyï¿½e par la mï¿½thode splitRolls
     Instancie la classe Dice autant de fois qu'il y a de lancer 
-    et renvoi la liste des lancer de dés[DiceA1, DiceA2]                // Pour le premier lancer de l'exemple
-                                                                        // la méthode renvoi : [ DiceA1 :{side : 6, value: 4}, DiceA2:{side: 6, value: 2}]
+    et renvoi la liste des lancer de dï¿½s[DiceA1, DiceA2]                // Pour le premier lancer de l'exemple
+                                                                        // la mï¿½thode renvoi : [ DiceA1 :{side : 6, value: 4}, DiceA2:{side: 6, value: 2}]
 
 }
  */
 
-import {Dice} from "./Dice.class";
-
+import { DiceController as Dice } from "../dice/dice.service";
 
 export class DicesParser {
 
@@ -51,7 +50,7 @@ export class DicesParser {
 
     private _modifierParser(modifiers: Array<string>) {
         let modifiersSum = 0;
-        for (let m of modifiers) { modifiersSum += parseInt(m) } // Additionne chaque élément de la liste ["+3", "-4"]
+        for (let m of modifiers) { modifiersSum += parseInt(m) } // Additionne chaque ï¿½lï¿½ment de la liste ["+3", "-4"]
         return modifiersSum;
     };
 
@@ -64,16 +63,16 @@ export class DicesParser {
 
         /*Partie modifier*/
         let modifiersSum = 0;
-        let modifiers = dices.match(/(\+\d+)|(\-\d+)/g); // Récupère ["+3", "-4"]
+        let modifiers = dices.match(/(\+\d+)|(\-\d+)/g); // Rï¿½cupï¿½re ["+3", "-4"]
         if (modifiers) {
             modifiersSum = this._modifierParser(modifiers);
         };
 
-        /*Partie dés*/
-        let dice = dices.match(/\d*d\d+/gi); // Récupère ["2D3"]
+        /*Partie dï¿½s*/
+        let dice = dices.match(/\d*d\d+/gi); // Rï¿½cupï¿½re ["2D3"]
         let dicesRoll = this._roll(dice as Array<string>);
 
-        /*Création de l'objet final*/
+        /*Crï¿½ation de l'objet final*/
         let roll = {
             toString: dices,
             dices: dicesRoll.dicesList,
@@ -91,20 +90,20 @@ export class DicesParser {
 
     private _roll(dice: Array<string>) {
 
-        if (dice[0].search(/^\d+d/gi) !== 0) dice[0] = "1".concat(dice[0]); //dans le cas de "d12" un "1" est rajouté pour obtenir "1D12"
+        if (dice[0].search(/^\d+d/gi) !== 0) dice[0] = "1".concat(dice[0]); //dans le cas de "d12" un "1" est rajoutï¿½ pour obtenir "1D12"
 
-        let diceDecomposed = dice[0].split(/d/gi); // Récupère ["2", "3"]
-        let rollNumber = parseInt(diceDecomposed[0]); //Récupère le nombre de lancer
-        let side = parseInt(diceDecomposed[1]); //Récupère a valeur du dé
+        let diceDecomposed = dice[0].split(/d/gi); // Rï¿½cupï¿½re ["2", "3"]
+        let rollNumber = parseInt(diceDecomposed[0]); //Rï¿½cupï¿½re le nombre de lancer
+        let side: number = parseInt(diceDecomposed[1]); //Rï¿½cupï¿½re a valeur du dï¿½
 
         let dicesList = [];
         let dicesSum = 0;
 
-        /*Pour chaque lancer de dé de même valeur*/
+        /*Pour chaque lancer de dï¿½ de mï¿½me valeur*/
         for (let i = 0; i < rollNumber; i++) {
-            let diceRoll = new Dice(side); //Création de l'objet dé
-            dicesList.push(diceRoll); //Ajout du dé créé à la liste dices
-            dicesSum += diceRoll.value; //Additionne la valeur des différent lancer
+            let diceRoll = new Dice(side).get(); //Crï¿½ation de l'objet dï¿½
+            dicesList.push(diceRoll); //Ajout du dï¿½ crï¿½ï¿½ ï¿½ la liste dices
+            dicesSum += diceRoll.value; //Additionne la valeur des diffï¿½rent lancer
         };
 
         let dicesRoll = {

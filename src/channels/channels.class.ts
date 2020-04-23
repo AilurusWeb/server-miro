@@ -8,14 +8,15 @@ import { OutputStream } from "../inputstream/inputstream.interface";
 import * as InputStreamService from "../inputstream/inputstream.service";
 
 /**
- * Class Model Interfaces
+ * Data Model
  */
+
  
 /**
  * Class Helpers
  */
 
-import { DateNow } from "../common/date";
+import DateNow from "../common/date";
 
 /**
  * Regex Definitions

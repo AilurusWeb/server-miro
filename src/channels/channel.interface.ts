@@ -13,3 +13,15 @@ interface Channel {
 }
 
 export { Channel };
+
+let channels = {
+  id: "id_123456",
+  name: "channel-5",
+  users: [],
+  replies: [],
+  description: 'Vous etes sur channel 5',
+  image: null,
+  date_creation: "23/04/2020",
+  locked: false,
+  online: true
+}
