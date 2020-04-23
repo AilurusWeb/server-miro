@@ -41,6 +41,8 @@ DicesParser._roll(map{json});
  */
 
 import { DiceController as Dice } from "../dice/dice.service";
+import { rolls as interfaceRolls } from "./diceparser.interface";
+import { diceRoll as interfaceDiceRoll } from "./diceparser.interface";
 
 export class DicesParser {
 
@@ -48,14 +50,14 @@ export class DicesParser {
         this.dicesSplit(dicesList);
     };
 
-    private _modifierParser(modifiers: Array<string>) {
+    private _modifierParser(modifiers: Array<string>): number {
         let modifiersSum = 0;
         for (let m of modifiers) { modifiersSum += parseInt(m) } // Additionne chaque �l�ment de la liste ["+3", "-4"]
         return modifiersSum;
     };
 
-    public dicesSplit(rollsList: Array<string>) {
-
+    public dicesSplit(rollsList: Array<string>): interfaceRolls {
+        
     let rolls = [];
 
     for (let dices of rollsList) {
@@ -74,6 +76,7 @@ export class DicesParser {
 
         /*Cr�ation de l'objet final*/
         let roll = {
+            type: "dice",
             toString: dices,
             dices: dicesRoll.dicesList,
             modifiers: modifiersSum,
@@ -88,7 +91,7 @@ export class DicesParser {
         return rolls;
     };
 
-    private _roll(dice: Array<string>) {
+    private _roll(dice: Array<string>): interfaceDiceRoll {
 
         if (dice[0].search(/^\d+d/gi) !== 0) dice[0] = "1".concat(dice[0]); //dans le cas de "d12" un "1" est rajout� pour obtenir "1D12"
 
