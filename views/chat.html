@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>Miro Widget Roll Dice</title>
+    <meta charset="utf-8">
+    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/styles.1.0.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/style.css"/>
+</head>
+<body>
+    <div class="sidebar__content">
+        <div id="dicetray" class="dicetray">
+          <div class="dicetray__header">
+            <h2>Lanceur de dés</h2>
+          </div>
+          <div class="dicetray__chat">
+            <div id="replies" class="dicetray__replies">
+              <!-- Replies -->
+            </div>
+            <div class="dicetray__form">
+              <div class="dicetray__toreply miro-input-group miro-input-group--small">
+                <input type="text" id="replybar-input" class="miro-input miro-input--primary" value="" placeholder="Ecrire ici...">
+                <button id="replybar-submit" class="miro-btn miro-btn--primary">Répondre</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/static/chat.js"></script>
+</body>
+</html>

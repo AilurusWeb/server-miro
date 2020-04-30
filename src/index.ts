@@ -7,12 +7,13 @@ import express from "express";
 import bodyParser from "body-parser";
 import { Server as http } from "http";
 import { listen as ioServer } from "socket.io";
+import { ExtendedSocket } from "./socket";
 import fetch from 'node-fetch';
 import cors from "cors";
 import helmet from "helmet";
 import mustacheExpress from "mustache-express";
 // Routing
-import { itemsRouter } from "./items/items.router";
+import { channelRouter } from "./channel/channel.router";
 import { diceRouter } from "./dice/dice.router";
 // Routing Exceptions
 import { errorHandler } from "./middleware/error.middleware";
@@ -45,10 +46,10 @@ app.use('/static', express.static('static'));
 app.set('view engine', 'html');
 app.set('views', './views');
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // Routing
-app.use("/items", itemsRouter);
+app.use("/channel", channelRouter);
 app.use("/dice", diceRouter);
 // Routing Exceptions
 app.use(errorHandler);
@@ -57,26 +58,22 @@ app.use(notFoundHandler);
 /**
  * Socket IO
  */
-const https_api = `http://localhost:${PORT}/`;
 let clients = 0;
-io.on('connection', function (socket) {
+io.on('connection', function (ioSocket) {
+  const socket = <ExtendedSocket>ioSocket;
   clients++;
 
-  socket.on('user to roll', function (user_roll) {
-    const fetch = require('node-fetch');
+  socket.on('new player', function (user) {
 
-    const url = https_api + 'channel/id_15151/roll/';
-    fetch('https://httpbin.org/post', {
-      method: 'post',
-      body: JSON.stringify(user_roll),
-      headers: {'Content-Type': 'application/json'}
+    socket.username = user.name;
+    io.emit('welcome player', {
+      message: "Bienvenue à " + user.name
     })
-      .then(res => res.json())
-      .then(json => console.log(json));
-      
-    // socket.broadcast.emit('response', private_msg);
   })
-  
+
+  socket.on('player rolled', function (data) {
+    io.emit('watch my rolled', data)
+  })
 
   socket.on('disconnect', function () {
     clients--;

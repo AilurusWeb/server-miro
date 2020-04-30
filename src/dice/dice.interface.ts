@@ -1,8 +1,25 @@
 // src/dice/dice.interface.ts
 
-interface Dice {
+/**
+ * Dice class structure
+ */
+export interface I_Dice {
+  get(side: number): T_Dice
+}
+
+
+/**
+ * Dice data structure
+ */
+export type T_Dice = {
   side: number,
   value: number
 }
 
-export { Dice };
+/**
+ * Dices data structure
+ */
+export type T_Dices = {
+  list: Array<T_Dice>,
+  sum: number
+}
