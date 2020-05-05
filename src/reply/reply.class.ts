@@ -31,7 +31,7 @@ export class C_Reply implements I_Reply {
 
   constructor (user: string, rolls: T_Rolls) {
     moment.locale('fr');
-    this._user = "Khu";
+    this._user = user;
     this._time = moment().format('LTS');
     this._rolls = rolls;
   }

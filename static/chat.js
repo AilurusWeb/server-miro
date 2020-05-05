@@ -27,19 +27,14 @@
   let main = function () {
 
     if(typeof user.name === "undefined") {
-      //HTML.sender.classList.add('is-show');
-      //HTML.formSender.addEventListener("submit", setUsername);
       user.name = prompt("Nom de personnage");
       
       socket.emit('new player', user);
-      socket.on('welcome player', function (data) {
-        console.log(data.message);
-      })
     }
     
     let sentReply = function (e) {
       apiRolled();
-
+      HTML.replybarInput.value = "";
     }
 
     HTML.replybarInput.addEventListener('keyup', e => (e.key === 'Enter')? sentReply(e) : false);
@@ -66,15 +61,13 @@
         time: d.date,
         rolls: d.rolls
       });
-      //insertReply(d.user, d.date, d.rolls);
     })
     .catch(function (error) {
-      console.log(error);
+      // error
     });
   }
 
   socket.on('watch my rolled', function (d) {
-    console.log(d)
     insertReply(d.user, d.time, d.rolls);
   })
 
@@ -100,7 +93,7 @@
       tpl += `<div class="dicetray__roll">
         <span class="c-side">${roll.input}</span>
         <span class="c-result">
-          <b>${roll.dices.sum}</b> <small>(dé)</small> + 
+          <b>${roll.dices.sum}</b> <small>(${roll.dices.detail})</small> + 
           <b>${roll.modifiers}</b> <small>(bonus)</small> = 
           <b>${roll.sum}</b></span>
       </div>`

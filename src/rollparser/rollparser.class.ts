@@ -5,6 +5,7 @@ import { C_Dice } from "../dice/dice.class";
 import { I_Dice, T_Dice, T_Dices } from "../dice/dice.interface";
 
 import { isFilledArray } from "../common/validators.helper";
+import { stringify } from "querystring";
 
 /**
  * Regex Definitions
@@ -55,7 +56,8 @@ export class C_RollParser implements I_RollParser {
   }
 
   private _dices(strDices: string): T_Dices {
-    let dices: T_Dices = { list: [], sum: 0 };
+    let dices: T_Dices = { list: [], detail: '', sum: 0 };
+    let values: Array<number> = [];
 
     let splitted = strDices.split(/d/gi);
     if (!isFilledArray(splitted)) return dices;
@@ -72,9 +74,11 @@ export class C_RollParser implements I_RollParser {
     
     for (let i = 1; i <= nbDices; i++) {
       const dice = new C_Dice().get(side);
+      values.push(dice.value);
       dices.list = {...dices.list, ...dice};
       dices.sum += dice.value;
     }
+    dices.detail = values.join('+');
     return dices;
   }
 
@@ -108,3 +112,7 @@ export class C_RollParser implements I_RollParser {
   }
 
 }
+
+let dices = [
+  {}
+]

@@ -13,6 +13,7 @@ import cors from "cors";
 import helmet from "helmet";
 import mustacheExpress from "mustache-express";
 // Routing
+import { pageRouter } from "./page/page.router";
 import { channelRouter } from "./channel/channel.router";
 import { diceRouter } from "./dice/dice.router";
 // Routing Exceptions
@@ -51,6 +52,7 @@ app.use(bodyParser.json())
 // Routing
 app.use("/channel", channelRouter);
 app.use("/dice", diceRouter);
+app.use("/", pageRouter);
 // Routing Exceptions
 app.use(errorHandler);
 app.use(notFoundHandler);
@@ -67,10 +69,6 @@ io.on('connection', function (ioSocket) {
     socket.username = user.name;
     socket.listUsers = [];
     socket.listUsers.push(user.name);
-
-    io.emit('welcome player', {
-      message: socket.listUsers.join(', ') + " dites bonjour à " + user.name
-    })
   })
 
   socket.on('player rolled', function (data) {
@@ -114,6 +112,7 @@ interface WebpackHotModule {
     dispose(callback: (data: any) => void): void;
   };
 }
+
 
 declare const module: WebpackHotModule;
 
