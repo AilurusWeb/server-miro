@@ -5,7 +5,9 @@
 
 .env
 dist
-.code-workspace
+dist.webpack
+server-miro.code-workspace
+app
 
 # User-specific files
 *.rsuser

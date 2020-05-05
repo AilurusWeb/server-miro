@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prod": "node app/index",
     "debug": "DEBUG=express:* node dist/index.js",
-    "start": "node dist/index",
+    "start": "node dist.webpack/index",
     "webpack": "webpack --config webpack.config.ts",
     "ngrok": "./node_modules/ngrok/bin/ngrok http 7000"
   },

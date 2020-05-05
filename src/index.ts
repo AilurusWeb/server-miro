@@ -64,10 +64,12 @@ io.on('connection', function (ioSocket) {
   clients++;
 
   socket.on('new player', function (user) {
-
     socket.username = user.name;
+    socket.listUsers = [];
+    socket.listUsers.push(user.name);
+
     io.emit('welcome player', {
-      message: "Bienvenue à " + user.name
+      message: socket.listUsers.join(', ') + " dites bonjour à " + user.name
     })
   })
 
