@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    /* Basic Options */
     "strict": true,
     "module": "commonjs",
     "moduleResolution": "node",

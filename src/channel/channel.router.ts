@@ -35,9 +35,9 @@ channelRouter.get("/", async (req: Request, res: Response) => {
 });
 
 channelRouter.get("/rolled", async (req: Request, res: Response) => {
-  const user: string = req.params.user;
-  const rolls: string = req.params.rolls;
-  let reply = await channelService.createReply(user, rolls); 
+  const username: string = req.body.user;
+  const rolls: string = req.body.rolls;
+  let reply = await channelService.createReply(username, rolls); 
   try {
     res.status(200).send({ reply: reply });
   } catch (e) {

@@ -59,7 +59,7 @@ export class C_RollParser implements I_RollParser {
     let dices: T_Dices = { list: [], detail: '', sum: 0 };
     let values: Array<number> = [];
 
-    let splitted = strDices.split(/d/gi);
+    let splitted = strDices.split(/d/gi).filter(x => x);
     if (!isFilledArray(splitted)) return dices;
     
     let nbDices = 1;
@@ -71,7 +71,6 @@ export class C_RollParser implements I_RollParser {
       nbDices = parseInt(splitted[0])
       side = parseInt(splitted[1]);
     }
-    
     for (let i = 1; i <= nbDices; i++) {
       const dice = new C_Dice().get(side);
       values.push(dice.value);

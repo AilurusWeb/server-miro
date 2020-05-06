@@ -13,7 +13,7 @@ export interface I_Reply {
  * Structure of Data Channel
  */
 export type T_Reply = {
-  user: string,
+  username: string,
   date: string,
   rolls: T_Rolls
 }

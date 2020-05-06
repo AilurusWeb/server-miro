@@ -65,10 +65,8 @@ io.on('connection', function (ioSocket) {
   const socket = <ExtendedSocket>ioSocket;
   clients++;
 
-  socket.on('new player', function (user) {
-    socket.username = user.name;
-    socket.listUsers = [];
-    socket.listUsers.push(user.name);
+  socket.on('new player', function (data) {
+    socket.username = data.username;
   })
 
   socket.on('player rolled', function (data) {
@@ -83,7 +81,6 @@ io.on('connection', function (ioSocket) {
     io.emit('user disconnected');
   });
 });
-
 
 /**
  * Server Activation

@@ -69,8 +69,24 @@
 .dicetray__roll small {
   color: #888;
 }
+.dicetray__bar {
+  display: flex;
+  width: 680px; /* 340 * 2 */
+  padding: 1.5rem 0;
+  justify-content: space-around;
+  align-items: center;
+  transform: translateX(0);
+  transition: transform .4s;
+}
+.dicetray__bar.is-rolled {
+  transform: translateX(-340px);
+  transition: transform .4s;
+}
+.dicetray__usernamebar,
 .dicetray__form {
-  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 .dicetray__toreply {
 

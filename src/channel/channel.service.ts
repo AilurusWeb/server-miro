@@ -31,7 +31,7 @@ let channels: T_Channels = {
  * Service Methods
  */
 
-export const createReply = async (user: string, input: string): Promise<T_Reply> => {
+export const createReply = async (username: string, input: string,): Promise<T_Reply> => {
   const rolls = new C_Dispenser(input).get();
-  return new C_Reply(user, rolls).get();
+  return new C_Reply(username, rolls).get();
 };

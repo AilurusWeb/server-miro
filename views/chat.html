@@ -16,12 +16,20 @@
             <div id="replies" class="dicetray__replies">
               <!-- Replies -->
             </div>
-            <div class="dicetray__form">
-              <div class="dicetray__toreply miro-input-group miro-input-group--small">
-                <input type="text" id="replybar-input" class="miro-input miro-input--primary" value="" placeholder="Ecrire ici...">
-                <button id="replybar-submit" class="miro-btn miro-btn--primary">Répondre</button>
+            <section id="chatbar" class="dicetray__bar">
+              <div id="usernamebar" class="dicetray__usernamebar">
+                <div class="dicetray__username miro-input-group miro-input-group--small">
+                  <input type="text" id="username-input" class="miro-input miro-input--primary" value="" placeholder="Votre Nom..." autofocus>
+                  <button id="username-submit" class="miro-btn miro-btn--primary">Répondre</button>
+                </div>
               </div>
-            </div>
+              <div id="replybar" class="dicetray__form">
+                <div class="dicetray__toreply miro-input-group miro-input-group--small">
+                  <input type="text" id="replybar-input" class="miro-input miro-input--primary" value="" placeholder="Ecrire ici..." autofocus>
+                  <button id="replybar-submit" class="miro-btn miro-btn--primary">Répondre</button>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
     </div>
